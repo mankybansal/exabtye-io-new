@@ -1,0 +1,10 @@
+
+
+.App-editor-code {
+    position: relative;
+}
+
+.CodeMirror {
+    height: 100% !important;
+    max-height: calc(100% - 23px) !important;
+}
