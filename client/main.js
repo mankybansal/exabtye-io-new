@@ -30,7 +30,7 @@ import {
 import OrbitControls from 'three-orbitcontrols';
 
 import '../node_modules/codemirror/lib/codemirror.css'
-import '../node_modules/codemirror/theme/lesser-dark.css'
+import '../node_modules/codemirror/theme/base16-dark.css'
 import '../node_modules/codemirror/addon/selection/active-line'
 import './styles.css'
 
@@ -45,7 +45,7 @@ class App extends Component {
             zoomOut: false,
             boundingBox: true,
             axes: true,
-            code: "",
+            code: "// Type in your code here\n\n // If there are no errors, the viewer will show your molecule design",
             errors: false
         };
 
@@ -159,7 +159,7 @@ class App extends Component {
 
         let options = {
             lineNumbers: true,
-            theme: "lesser-dark",
+            theme: "base16-dark",
             styleSelectedText: true,
             viewportMargin: Infinity
         };
