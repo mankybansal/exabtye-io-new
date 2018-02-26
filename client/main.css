@@ -44,7 +44,7 @@ html, body {
 
 .App-spacer {
     width: 100%;
-    height: 60px;
+    height: 100px;
 }
 
 .App-location {
@@ -68,6 +68,54 @@ html, body {
     font-size: 20px;
     color: white;
     margin-right: 20px;
+    cursor: pointer;
+}
+
+.nav:hover {
+    background: rgba(255,255,255,0.03);
+}
+
+.SideBar-Container {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 998;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    transition: all ease .5s;
+}
+
+.SideBar {
+    width: 300px;
+    background: white;
+    height: 100%;
+    box-shadow: 0 0 40px rgba(0,0,0,.5);
+    padding: 100px 0 100px 0;
+    box-sizing: border-box;
+    float: left;
+}
+
+.SideBar-Clickable {
+    width: calc(100% - 300px);
+    height: 100%;
+    float: left;
+}
+
+.SideBar-Item {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 20px;
+    border-top: 1px solid #EEE;
+    display: inline-block;
+    font-family: Roboto-Light, sans-serif;
+    color: #555;
+    transition: all ease .3s;
+    cursor: pointer;
+}
+
+.SideBar-Item:hover {
+    background: rgba(0,0,0,.03);
 }
 
 .App-avatar {
@@ -75,6 +123,12 @@ html, body {
     color: white;
     display: inline-block;
     float: right;
+    cursor: pointer;
+    transition: all ease .3s;
+}
+
+.App-avatar:hover {
+   background: rgba(255,255,255,.03);
 }
 
 .App-avatar-text {
@@ -93,6 +147,7 @@ html, body {
     width: 40px;
     border-radius: 10px;
     margin-top: 10px;
+    margin-right: 18px;
     background: #EEE;
     float: right;
     overflow: hidden;
@@ -107,9 +162,74 @@ html, body {
     background-color: #FFF;
     width: 100%;
     height: 40px;
+    position: fixed;
+    z-index: 997;
+    top: 60px;
     padding: 0 30px 0 30px;
     box-sizing: border-box;
-    box-shadow: 0 0 15px rgba(0,0,0,.7);
+    box-shadow: 0 0 15px rgba(0,0,0,.4);
+}
+
+
+.App-menu-item {
+    height: 40px;
+    font-size: 16px;
+    color: #444;
+    padding: 10px 30px 14px 30px;
+    float: left;
+    font-family: Roboto-Light, sans-serif;
+    display: inline-block;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: all ease .2s;
+
+    text-align: left;
+}
+
+.App-menu-item:hover {
+    background: rgba(0,0,0,0.1);
+    color: #000;
+}
+
+.MenuDropDown {
+    position: fixed;
+    z-index: 100;
+    width: 200px;
+    display: block;
+    background: white;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.7);
+    visibility: hidden;
+    opacity: 0;
+    transition: all ease .3s;
+    margin-left: -15px;
+    margin-top: 12px;
+}
+
+.MenuDropDown-Item {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 15px 12px 15px;
+    border-top: 1px solid #EEE;
+    display: inline-block;
+    font-family: Roboto-Light, sans-serif;
+    color: #333;
+    text-align: left;
+    transition: all ease .3s;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.MenuDropDown-Item:hover {
+    background: rgba(0,0,0,.05);
+}
+.MenuDropDown-Item:active {
+    background: rgba(0,0,0,.1);
+}
+
+.App-menu-item:hover .MenuDropDown {
+    visibility: visible;
+    opacity: 1;
+    margin-left: -30px;
 }
 
 .App-editor-container {
@@ -209,23 +329,6 @@ html, body {
     box-shadow: inset 0 0 30px rgba(0,0,0,0.5);
 }
 
-.App-menu-item {
-    height: 40px;
-    font-size: 16px;
-    color: #444;
-    padding: 10px 30px 14px 30px;
-    float: left;
-    font-family: Roboto-Light, sans-serif;
-    display: inline-block;
-    box-sizing: border-box;
-    cursor: pointer;
-    transition: all ease .2s;
-}
-
-.App-menu-item:hover {
-    background: rgba(0,0,0,0.1);
-    color: #000;
-}
 
 .App-title {
     font-size: 1.5em;
@@ -342,6 +445,7 @@ html, body {
     width: 40px;
     color: rgba(255,255,255,.4);
     transition: all ease .3s;
+    cursor: pointer;
 }
 
 .ctrlActive {
@@ -374,4 +478,32 @@ html, body {
 
 .layout-toggle:hover {
     background: rgba(255,255,255,.1);
+}
+
+.error {
+    position: fixed;
+    z-index: 99;
+    display: inline-block;
+    font-size: 10px;
+    color: rgba(255,255,255,.7);
+    margin-left: 50px;
+    margin-top: 5px;
+}
+
+.errorIndicator, .errorIndicator-Green {
+    width: 8px;
+    border-radius: 50%;
+    height: 8px;
+    background: red;
+    opacity: .7;
+    float: left;
+}
+
+.errorIndicator-Green {
+    background: green;
+}
+
+.errorText {
+    margin-left: 5px;
+    float: left;
 }

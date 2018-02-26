@@ -45,8 +45,9 @@ class App extends Component {
             zoomOut: false,
             boundingBox: true,
             axes: true,
-            code: "// Type in your code here\n\n // If there are no errors, the viewer will show your molecule design",
-            errors: false
+            code: "\n// Exabtye.io Material Developer Sample\n// Type in your XYZ code here\n\n// If there are no errors, the viewer will show your molecule design\n\n// File Format:\n\n//    <number of atoms>\n//    comment line\n//    <element> <X> <Y> <Z>\n//    <element> <X> <Y> <Z>\n//    ...\n",
+            errors: false,
+            sideBar: false
         };
 
         this.rotateHandler = this.rotateHandler.bind(this);
@@ -57,6 +58,7 @@ class App extends Component {
         this.toggleAxesHandler = this.toggleAxesHandler.bind(this);
 
         this.updateCode = this.updateCode.bind(this);
+        this.toggleSideBar = this.toggleSideBar.bind(this);
     }
 
     rotateHandler() {
@@ -109,9 +111,13 @@ class App extends Component {
         });
     }
 
+    toggleSideBar() {
+        this.setState({
+            sideBar: !this.state.sideBar
+        });
+    }
 
     updateCode(newCode) {
-
 
         let x = newCode.split('\n');
 
@@ -154,7 +160,6 @@ class App extends Component {
             });
     }
 
-
     render() {
 
         let options = {
@@ -164,10 +169,43 @@ class App extends Component {
             viewportMargin: Infinity
         };
 
+        let sideBar = null;
+
+        if (this.state.sideBar) {
+            sideBar =
+                <div className="SideBar-Container animated fadeIn">
+                    <div className="SideBar animated fadeInLeft">
+                        <div className="SideBar-Item">Sidebar Item</div>
+                        <div className="SideBar-Item">Sidebar Item</div>
+                        <div className="SideBar-Item">Sidebar Item</div>
+                        <div className="SideBar-Item">Sidebar Item</div>
+                        <div className="SideBar-Item">Sidebar Item</div>
+                    </div>
+
+                    <div className="SideBar-Clickable" onClick={this.toggleSideBar}/>
+                </div>
+        }
+
+        let errorChecker = null;
+
+        if(this.state.errors){
+            errorChecker =
+                <div className="error">
+                    <div className="errorIndicator"/>
+                    <div className="errorText">Errors Present</div>
+                </div>
+        }else {
+            errorChecker =
+                <div className="error">
+                    <div className="errorIndicator-Green"/>
+                    <div className="errorText">No Errors</div>
+                </div>
+        }
+
         return (
             <div className="App">
                 <div className="App-header">
-                    <div className="nav"><FontAwesomeIcon icon={faBars}/></div>
+                    <div className="nav" onClick={this.toggleSideBar}><FontAwesomeIcon icon={faBars}/></div>
                     <img src="images/exabyte-logo.png" className="App-logo" alt="logo"/>
                     <div className="App-location">Material Developer</div>
 
@@ -184,36 +222,77 @@ class App extends Component {
                             <img className="avatar-img" src="images/manky.jpg"/>
                         </div>
                     </div>
-
-
                 </div>
 
-                <div className="App-spacer"/>
+                {sideBar}
 
                 <div className="App-menu">
                     <div className="App-menu-item">
                         <u>F</u>ile
+                        <div className="MenuDropDown">
+                            <div className="MenuDropDown-Item">Menu Item</div>
+                            <div className="MenuDropDown-Item">Menu Item</div>
+                            <div className="MenuDropDown-Item">Menu Item</div>
+                            <div className="MenuDropDown-Item">Menu Item</div>
+                        </div>
                     </div>
                     <div className="App-menu-item">
                         <u>E</u>dit
+                        <div className="MenuDropDown">
+                            <div className="MenuDropDown-Item">Menu Item</div>
+                            <div className="MenuDropDown-Item">Menu Item</div>
+                            <div className="MenuDropDown-Item">Menu Item</div>
+                            <div className="MenuDropDown-Item">Menu Item</div>
+                        </div>
                     </div>
                     <div className="App-menu-item">
                         <u>V</u>iew
+                        <div className="MenuDropDown">
+                            <div className="MenuDropDown-Item">Menu Item</div>
+                            <div className="MenuDropDown-Item">Menu Item</div>
+                            <div className="MenuDropDown-Item">Menu Item</div>
+                            <div className="MenuDropDown-Item">Menu Item</div>
+                        </div>
                     </div>
                     <div className="App-menu-item">
                         <u>I</u>nspect
+                        <div className="MenuDropDown">
+                            <div className="MenuDropDown-Item">Menu Item</div>
+                            <div className="MenuDropDown-Item">Menu Item</div>
+                            <div className="MenuDropDown-Item">Menu Item</div>
+                            <div className="MenuDropDown-Item">Menu Item</div>
+                        </div>
                     </div>
                     <div className="App-menu-item">
                         Si<u>m</u>ulations
+                        <div className="MenuDropDown">
+                            <div className="MenuDropDown-Item">Menu Item</div>
+                            <div className="MenuDropDown-Item">Menu Item</div>
+                            <div className="MenuDropDown-Item">Menu Item</div>
+                            <div className="MenuDropDown-Item">Menu Item</div>
+                        </div>
                     </div>
                     <div className="App-menu-item">
                         <u>S</u>ettings
+                        <div className="MenuDropDown">
+                            <div className="MenuDropDown-Item">Menu Item</div>
+                            <div className="MenuDropDown-Item">Menu Item</div>
+                            <div className="MenuDropDown-Item">Menu Item</div>
+                            <div className="MenuDropDown-Item">Menu Item</div>
+                        </div>
                     </div>
                     <div className="App-menu-item">
                         <u>H</u>elp
+                        <div className="MenuDropDown">
+                            <div className="MenuDropDown-Item">Menu Item</div>
+                            <div className="MenuDropDown-Item">Menu Item</div>
+                            <div className="MenuDropDown-Item">Menu Item</div>
+                            <div className="MenuDropDown-Item">Menu Item</div>
+                        </div>
                     </div>
-
                 </div>
+
+                <div className="App-spacer"></div>
 
                 <div className="App-editor-container">
 
@@ -222,6 +301,8 @@ class App extends Component {
 
                         <div className="container-title">
                             <FontAwesomeIcon icon={faCode}/>&nbsp;&nbsp;&nbsp;Source Editor (benzene.xyz)
+
+                            {errorChecker}
                         </div>
 
 
@@ -247,7 +328,7 @@ class App extends Component {
                             errors={this.state.errors}
                         />
 
-                        <div className="compound-details">C<sub>6</sub>H<sub>6</sub></div>
+                        <div className="compound-details">benzene.xyz</div>
 
                     </div>
 
@@ -255,6 +336,7 @@ class App extends Component {
                         <div className="viewer-ctrl">
                             <FontAwesomeIcon icon={faExpand}/>
                         </div>
+
                         <br/>
                         <br/>
                         <br/>
@@ -324,7 +406,6 @@ class App extends Component {
                         CPU Usage
                     </div>
                 </div>
-
 
             </div>
         );
@@ -422,6 +503,10 @@ class ObjectViewer extends Component {
                     break;
                 case "N":
                     defcolor = 0x0000ff;
+                    defgeometry = 0.43;
+                    break;
+                case "He":
+                    defcolor = 0x00ff00;
                     defgeometry = 0.43;
                     break;
 
@@ -560,7 +645,6 @@ class ObjectViewer extends Component {
         )
     }
 }
-
 
 Meteor.startup(() => {
     render(<App/>, document.getElementById('root'));
