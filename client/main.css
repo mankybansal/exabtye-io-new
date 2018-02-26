@@ -7,13 +7,17 @@ html, body {
     height: 100%;
     font-family: sans-serif;
     overflow: hidden;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -o-user-select: none;
 }
 
 #renderer {
     position: fixed;
     z-index: 100;
 }
-
 
 .App {
     text-align: center;
@@ -39,7 +43,7 @@ html, body {
     width: 100%;
     left: 0;
     z-index: 9999;
-    box-shadow: 0 0 20px rgba(0,0,0,0.7);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
 }
 
 .App-spacer {
@@ -72,7 +76,7 @@ html, body {
 }
 
 .nav:hover {
-    background: rgba(255,255,255,0.03);
+    background: rgba(255, 255, 255, 0.03);
 }
 
 .SideBar-Container {
@@ -80,26 +84,41 @@ html, body {
     left: 0;
     top: 0;
     z-index: 998;
+    transition: all ease .5s;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.5);
-    transition: all ease .5s;
+}
+
+.show {
+    display: block;
+    opacity: 1;
+}
+
+.hide {
+    display: none;
+    opacity: 0;
 }
 
 .SideBar {
     width: 300px;
     background: white;
     height: 100%;
-    box-shadow: 0 0 40px rgba(0,0,0,.5);
+    box-shadow: 0 0 40px rgba(0, 0, 0, .5);
     padding: 100px 0 100px 0;
     box-sizing: border-box;
     float: left;
+    position: fixed;
+    z-index: 998;
+    animation-duration: .5s !important;
 }
 
 .SideBar-Clickable {
-    width: calc(100% - 300px);
+    width: 100%;
     height: 100%;
     float: left;
+    background: rgba(0, 0, 0, 0.5);
+    animation-duration: .5s !important;
+    transition: all ease 1s;
 }
 
 .SideBar-Item {
@@ -112,11 +131,45 @@ html, body {
     color: #555;
     transition: all ease .3s;
     cursor: pointer;
+    animation-duration: .5s !important;
+}
+
+.SideBar-Item:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.SideBar-Item:nth-child(2) {
+    animation-delay: 0.07s
+}
+
+.SideBar-Item:nth-child(3) {
+    animation-delay: 0.13s;
+}
+
+.SideBar-Item:nth-child(4) {
+    animation-delay: .18s;
+}
+
+.SideBar-Item:nth-child(5) {
+    animation-delay: .22s;
+}
+
+.SideBar-Item:nth-child(6) {
+    animation-delay: .25s;
+}
+
+.SideBar-Item:nth-child(7) {
+    animation-delay: .27s;
 }
 
 .SideBar-Item:hover {
-    background: rgba(0,0,0,.03);
+    background: rgba(0, 0, 0, .03);
 }
+
+.SideBar-Item:active {
+    background: rgba(0, 0, 0, .1);
+}
+
 
 .App-avatar {
     height: 60px;
@@ -127,8 +180,13 @@ html, body {
     transition: all ease .3s;
 }
 
+
+.hide {
+    display: none;
+}
+
 .App-avatar:hover {
-   background: rgba(255,255,255,.03);
+    background: rgba(255, 255, 255, .03);
 }
 
 .App-avatar-text {
@@ -167,9 +225,8 @@ html, body {
     top: 60px;
     padding: 0 30px 0 30px;
     box-sizing: border-box;
-    box-shadow: 0 0 15px rgba(0,0,0,.4);
+    box-shadow: 0 0 15px rgba(0, 0, 0, .4);
 }
-
 
 .App-menu-item {
     height: 40px;
@@ -187,7 +244,7 @@ html, body {
 }
 
 .App-menu-item:hover {
-    background: rgba(0,0,0,0.1);
+    background: rgba(0, 0, 0, 0.1);
     color: #000;
 }
 
@@ -197,12 +254,13 @@ html, body {
     width: 200px;
     display: block;
     background: white;
-    box-shadow: 0 5px 10px rgba(0,0,0,0.7);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.7);
     visibility: hidden;
     opacity: 0;
     transition: all ease .3s;
     margin-left: -15px;
-    margin-top: 12px;
+    margin-top: 11px;
+    border-top: 1px solid #444;
 }
 
 .MenuDropDown-Item {
@@ -220,10 +278,11 @@ html, body {
 }
 
 .MenuDropDown-Item:hover {
-    background: rgba(0,0,0,.05);
+    background: rgba(0, 0, 0, .05);
 }
+
 .MenuDropDown-Item:active {
-    background: rgba(0,0,0,.1);
+    background: rgba(0, 0, 0, .1);
 }
 
 .App-menu-item:hover .MenuDropDown {
@@ -232,11 +291,23 @@ html, body {
     margin-left: -30px;
 }
 
+.App-container {
+    width: 100%;
+    height: calc(100% - 100px);
+    margin-top: 100px;
+    left: 0;
+    position: absolute;
+    transition: all ease .5s;
+}
+
+.App-container-push {
+    left: 50px;
+}
+
 .App-editor-container {
     width: 100%;
     height: 500px;
     background: #EEE;
-
     overflow: hidden;
 }
 
@@ -267,7 +338,7 @@ html, body {
     box-sizing: border-box;
     padding: 10px 0 10px 0;
     background: #111;
-    box-shadow: 0 0 50px rgba(255,255,255,.3);
+    box-shadow: 0 0 50px rgba(255, 255, 255, .3);
 
 }
 
@@ -277,11 +348,11 @@ html, body {
     box-sizing: border-box;
     padding: 10px;
     width: 40px;
-    color: rgba(255,255,255,.4);
+    color: rgba(255, 255, 255, .4);
 }
 
 .App-terminal-ctrl:hover {
-    background: rgba(255,255,255,0.05);
+    background: rgba(255, 255, 255, 0.05);
 }
 
 .App-editor-code {
@@ -292,7 +363,7 @@ html, body {
     border-right: 5px solid #444;
     overflow: hidden;
     text-align: left;
-    box-shadow: inset 0 0 30px rgba(0,0,0,0.5);
+    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.5);
 }
 
 .App-editor-code-text {
@@ -306,18 +377,18 @@ html, body {
     width: 40px;
     float: left;
     height: calc(100% - 40px);
-    background: rgba(0,0,0,0.2);
+    background: rgba(0, 0, 0, 0.2);
     padding-top: 15px;
     box-sizing: border-box;
 
-    box-shadow: inset 0 0 30px rgba(0,0,0,0.5);
+    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.5);
 }
 
 .App-editor-code-lines-num {
     width: 100%;
     height: 15px;
     font-size: 12px;
-    color: rgba(255,255,255,.2);
+    color: rgba(255, 255, 255, .2);
 }
 
 .App-editor-view {
@@ -326,9 +397,8 @@ html, body {
     width: 40%;
     height: 100%;
     overflow: hidden;
-    box-shadow: inset 0 0 30px rgba(0,0,0,0.5);
+    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.5);
 }
-
 
 .App-title {
     font-size: 1.5em;
@@ -353,18 +423,18 @@ html, body {
     background: #333;
     font-size: 14px;
     color: #EEE;
-    box-shadow: 0 0 30px rgba(0,0,0,.5);
-}
-.container-title-2{
-    background: rgba(255,255,255,0.05);
-    color: #AAA;
+    box-shadow: 0 0 30px rgba(0, 0, 0, .5);
 }
 
+.container-title-2 {
+    background: rgba(255, 255, 255, 0.05);
+    color: #AAA;
+}
 
 .compound-details {
     width: 100%;
     height: 60px;
-    background: rgba(255,255,255,0.05);
+    background: rgba(255, 255, 255, 0.05);
     color: #999;
     padding: 18px;
     box-sizing: border-box;
@@ -385,11 +455,9 @@ html, body {
     height: 15px;
 }
 
-
 .App-editor-code-line:focus {
-    background: rgba(255,255,255,.05);
+    background: rgba(255, 255, 255, .05);
 }
-
 
 .App-editor-code-line {
     width: 100%;
@@ -397,7 +465,7 @@ html, body {
     outline: none;
     border: none;
     color: white;
-    background: rgba(0,0,0,0);
+    background: rgba(0, 0, 0, 0);
 }
 
 .App-terminal-input {
@@ -423,9 +491,15 @@ html, body {
 }
 
 @keyframes blink {
-    0% {opacity: 0;}
-    50% {opacity: 1;}
-    100% {opacity: 0;}
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
 }
 
 .viewer-controls {
@@ -434,7 +508,7 @@ html, body {
     width: 40px;
     background: #222;
     box-sizing: border-box;
-    box-shadow: 0 0 30px rgba(0,0,0,.3);
+    box-shadow: 0 0 30px rgba(0, 0, 0, .3);
 }
 
 .viewer-ctrl {
@@ -443,7 +517,7 @@ html, body {
     box-sizing: border-box;
     padding: 13px;
     width: 40px;
-    color: rgba(255,255,255,.4);
+    color: rgba(255, 255, 255, .4);
     transition: all ease .3s;
     cursor: pointer;
 }
@@ -454,12 +528,12 @@ html, body {
 }
 
 .viewer-ctrl:hover {
-    background: rgba(255,255,255,0.05);
-}
-.viewer-ctrl:active {
-    background: rgba(255,255,255,0.1);
+    background: rgba(255, 255, 255, 0.05);
 }
 
+.viewer-ctrl:active {
+    background: rgba(255, 255, 255, 0.1);
+}
 
 .layout-toggle {
     height: 35px;
@@ -471,13 +545,13 @@ html, body {
     box-sizing: border-box;
     font-size: 15px;
     color: #AAA;
-    background: rgba(255,255,255,.05);
+    background: rgba(255, 255, 255, .05);
     font-family: Roboto-Light, sans-serif;
     cursor: pointer;
 }
 
 .layout-toggle:hover {
-    background: rgba(255,255,255,.1);
+    background: rgba(255, 255, 255, .1);
 }
 
 .error {
@@ -485,7 +559,7 @@ html, body {
     z-index: 99;
     display: inline-block;
     font-size: 10px;
-    color: rgba(255,255,255,.7);
+    color: rgba(255, 255, 255, .7);
     margin-left: 50px;
     margin-top: 5px;
 }

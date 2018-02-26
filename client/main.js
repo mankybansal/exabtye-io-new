@@ -47,7 +47,8 @@ class App extends Component {
             axes: true,
             code: "\n// Exabtye.io Material Developer Sample\n// Type in your XYZ code here\n\n// If there are no errors, the viewer will show your molecule design\n\n// File Format:\n\n//    <number of atoms>\n//    comment line\n//    <element> <X> <Y> <Z>\n//    <element> <X> <Y> <Z>\n//    ...\n",
             errors: false,
-            sideBar: false
+            sideBar: false,
+            sideBarInit: false
         };
 
         this.rotateHandler = this.rotateHandler.bind(this);
@@ -115,6 +116,11 @@ class App extends Component {
         this.setState({
             sideBar: !this.state.sideBar
         });
+
+        if (!this.state.sideBarInit)
+            this.setState({
+                sideBarInit: true
+            });
     }
 
     updateCode(newCode) {
@@ -169,32 +175,52 @@ class App extends Component {
             viewportMargin: Infinity
         };
 
+
         let sideBar = null;
 
-        if (this.state.sideBar) {
+
+        if (this.state.sideBarInit)
             sideBar =
-                <div className="SideBar-Container animated fadeIn">
-                    <div className="SideBar animated fadeInLeft">
-                        <div className="SideBar-Item">Sidebar Item</div>
-                        <div className="SideBar-Item">Sidebar Item</div>
-                        <div className="SideBar-Item">Sidebar Item</div>
-                        <div className="SideBar-Item">Sidebar Item</div>
-                        <div className="SideBar-Item">Sidebar Item</div>
+                <div className={this.state.sideBar ? "SideBar-Container show" : null}>
+                    <div
+                        className={this.state.sideBar ? "SideBar animated slideInLeft" : "SideBar animated slideOutLeft"}>
+                        <div className={this.state.sideBar ? "SideBar-Item animated fadeInLeft" : "SideBar-Item"}>
+                            Sidebar Item
+                        </div>
+                        <div className={this.state.sideBar ? "SideBar-Item animated fadeInLeft" : "SideBar-Item"}>
+                            Sidebar Item
+                        </div>
+                        <div className={this.state.sideBar ? "SideBar-Item animated fadeInLeft" : "SideBar-Item"}>
+                            Sidebar Item
+                        </div>
+                        <div className={this.state.sideBar ? "SideBar-Item animated fadeInLeft" : "SideBar-Item"}>
+                            Sidebar Item
+                        </div>
+                        <div className={this.state.sideBar ? "SideBar-Item animated fadeInLeft" : "SideBar-Item"}>
+                            Sidebar Item
+                        </div>
+                        <div className={this.state.sideBar ? "SideBar-Item animated fadeInLeft" : "SideBar-Item"}>
+                            Sidebar Item
+                        </div>
+                        <div className={this.state.sideBar ? "SideBar-Item animated fadeInLeft" : "SideBar-Item"}>
+                            Sidebar Item
+                        </div>
                     </div>
 
-                    <div className="SideBar-Clickable" onClick={this.toggleSideBar}/>
-                </div>
-        }
+                    <div
+                        className={this.state.sideBar ? "SideBar-Clickable animated fadeIn" : "SideBar-Clickable animated fadeOut"}
+                        onClick={this.toggleSideBar}/>
+                </div>;
 
         let errorChecker = null;
 
-        if(this.state.errors){
+        if (this.state.errors) {
             errorChecker =
                 <div className="error">
                     <div className="errorIndicator"/>
                     <div className="errorText">Errors Present</div>
                 </div>
-        }else {
+        } else {
             errorChecker =
                 <div className="error">
                     <div className="errorIndicator-Green"/>
@@ -203,6 +229,7 @@ class App extends Component {
         }
 
         return (
+
             <div className="App">
                 <div className="App-header">
                     <div className="nav" onClick={this.toggleSideBar}><FontAwesomeIcon icon={faBars}/></div>
@@ -221,192 +248,194 @@ class App extends Component {
                         <div className="App-avatar-img">
                             <img className="avatar-img" src="images/manky.jpg"/>
                         </div>
+
                     </div>
                 </div>
 
                 {sideBar}
 
-                <div className="App-menu">
-                    <div className="App-menu-item">
-                        <u>F</u>ile
-                        <div className="MenuDropDown">
-                            <div className="MenuDropDown-Item">Menu Item</div>
-                            <div className="MenuDropDown-Item">Menu Item</div>
-                            <div className="MenuDropDown-Item">Menu Item</div>
-                            <div className="MenuDropDown-Item">Menu Item</div>
+
+                <div
+                    className={this.state.sideBar && this.state.sideBarInit ? "App-container App-container-push" : "App-container"}>
+                    <div className="App-menu">
+                        <div className="App-menu-item">
+                            <u>F</u>ile
+                            <div className="MenuDropDown">
+                                <div className="MenuDropDown-Item">Menu Item</div>
+                                <div className="MenuDropDown-Item">Menu Item</div>
+                                <div className="MenuDropDown-Item">Menu Item</div>
+                                <div className="MenuDropDown-Item">Menu Item</div>
+                            </div>
+                        </div>
+                        <div className="App-menu-item">
+                            <u>E</u>dit
+                            <div className="MenuDropDown">
+                                <div className="MenuDropDown-Item">Menu Item</div>
+                                <div className="MenuDropDown-Item">Menu Item</div>
+                                <div className="MenuDropDown-Item">Menu Item</div>
+                                <div className="MenuDropDown-Item">Menu Item</div>
+                            </div>
+                        </div>
+                        <div className="App-menu-item">
+                            <u>V</u>iew
+                            <div className="MenuDropDown">
+                                <div className="MenuDropDown-Item">Menu Item</div>
+                                <div className="MenuDropDown-Item">Menu Item</div>
+                                <div className="MenuDropDown-Item">Menu Item</div>
+                                <div className="MenuDropDown-Item">Menu Item</div>
+                            </div>
+                        </div>
+                        <div className="App-menu-item">
+                            <u>I</u>nspect
+                            <div className="MenuDropDown">
+                                <div className="MenuDropDown-Item">Menu Item</div>
+                                <div className="MenuDropDown-Item">Menu Item</div>
+                                <div className="MenuDropDown-Item">Menu Item</div>
+                                <div className="MenuDropDown-Item">Menu Item</div>
+                            </div>
+                        </div>
+                        <div className="App-menu-item">
+                            Si<u>m</u>ulations
+                            <div className="MenuDropDown">
+                                <div className="MenuDropDown-Item">Menu Item</div>
+                                <div className="MenuDropDown-Item">Menu Item</div>
+                                <div className="MenuDropDown-Item">Menu Item</div>
+                                <div className="MenuDropDown-Item">Menu Item</div>
+                            </div>
+                        </div>
+                        <div className="App-menu-item">
+                            <u>S</u>ettings
+                            <div className="MenuDropDown">
+                                <div className="MenuDropDown-Item">Menu Item</div>
+                                <div className="MenuDropDown-Item">Menu Item</div>
+                                <div className="MenuDropDown-Item">Menu Item</div>
+                                <div className="MenuDropDown-Item">Menu Item</div>
+                            </div>
+                        </div>
+                        <div className="App-menu-item">
+                            <u>H</u>elp
+                            <div className="MenuDropDown">
+                                <div className="MenuDropDown-Item">Menu Item</div>
+                                <div className="MenuDropDown-Item">Menu Item</div>
+                                <div className="MenuDropDown-Item">Menu Item</div>
+                                <div className="MenuDropDown-Item">Menu Item</div>
+                            </div>
                         </div>
                     </div>
-                    <div className="App-menu-item">
-                        <u>E</u>dit
-                        <div className="MenuDropDown">
-                            <div className="MenuDropDown-Item">Menu Item</div>
-                            <div className="MenuDropDown-Item">Menu Item</div>
-                            <div className="MenuDropDown-Item">Menu Item</div>
-                            <div className="MenuDropDown-Item">Menu Item</div>
+
+                    <div className="App-editor-container">
+
+
+                        <div className="App-editor-code">
+
+                            <div className="container-title">
+                                <FontAwesomeIcon icon={faCode}/>&nbsp;&nbsp;&nbsp;Source Editor (benzene.xyz)
+
+                                {errorChecker}
+                            </div>
+
+
+                            <CodeMirror className="CodeMirror" value={this.state.code} onChange={this.updateCode}
+                                        options={options}/>
                         </div>
-                    </div>
-                    <div className="App-menu-item">
-                        <u>V</u>iew
-                        <div className="MenuDropDown">
-                            <div className="MenuDropDown-Item">Menu Item</div>
-                            <div className="MenuDropDown-Item">Menu Item</div>
-                            <div className="MenuDropDown-Item">Menu Item</div>
-                            <div className="MenuDropDown-Item">Menu Item</div>
+
+
+                        <div className="App-editor-view">
+
+                            <div className="container-title-2">
+                                <FontAwesomeIcon icon={faEye}/>&nbsp;&nbsp;&nbsp;Visual Editor
+                            </div>
+
+                            <ObjectViewer
+                                viewerRotate={this.state.viewerRotate}
+                                zoomIn={this.state.zoomIn}
+                                zoomOut={this.state.zoomOut}
+                                resetRotate={this.state.resetRotate}
+                                boundingBox={this.state.boundingBox}
+                                axes={this.state.axes}
+                                code={this.state.code}
+                                errors={this.state.errors}
+                            />
+
+                            <div className="compound-details">benzene.xyz</div>
+
                         </div>
-                    </div>
-                    <div className="App-menu-item">
-                        <u>I</u>nspect
-                        <div className="MenuDropDown">
-                            <div className="MenuDropDown-Item">Menu Item</div>
-                            <div className="MenuDropDown-Item">Menu Item</div>
-                            <div className="MenuDropDown-Item">Menu Item</div>
-                            <div className="MenuDropDown-Item">Menu Item</div>
+
+                        <div className="viewer-controls">
+                            <div className="viewer-ctrl">
+                                <FontAwesomeIcon icon={faExpand}/>
+                            </div>
+
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+
+                            <div onClick={this.toggleAxesHandler} className="viewer-ctrl">
+                                {this.state.axes ? <FontAwesomeIcon icon={faAsterisk} className="ctrlActive"/> :
+                                    <FontAwesomeIcon icon={faAsterisk}/>}
+                            </div>
+                            <div onClick={this.toggleBoundHandler} className="viewer-ctrl">
+                                {this.state.boundingBox ? <FontAwesomeIcon icon={faCube} className="ctrlActive"/> :
+                                    <FontAwesomeIcon icon={faCube}/>}
+                            </div>
+                            <div onClick={this.resetRotateHandler} className="viewer-ctrl">
+                                <FontAwesomeIcon icon={faExpandArrowsAlt}/>
+                            </div>
+
+                            <div className="viewer-ctrl">
+                                <FontAwesomeIcon icon={faCamera}/>
+                            </div>
+
+                            <div onClick={this.rotateHandler} className="viewer-ctrl">
+                                {this.state.viewerRotate ? <FontAwesomeIcon icon={faPause} className="ctrlActive"/> :
+                                    <FontAwesomeIcon icon={faPlay}/>}
+                            </div>
+                            <div onClick={this.zoomInHandler} className="viewer-ctrl">
+                                <FontAwesomeIcon icon={faSearchPlus}/>
+                            </div>
+                            <div onClick={this.zoomOutHandler} className="viewer-ctrl">
+                                <FontAwesomeIcon icon={faSearchMinus}/>
+                            </div>
                         </div>
+
                     </div>
-                    <div className="App-menu-item">
-                        Si<u>m</u>ulations
-                        <div className="MenuDropDown">
-                            <div className="MenuDropDown-Item">Menu Item</div>
-                            <div className="MenuDropDown-Item">Menu Item</div>
-                            <div className="MenuDropDown-Item">Menu Item</div>
-                            <div className="MenuDropDown-Item">Menu Item</div>
+
+                    <div className="App-terminal">
+                        <div className="App-terminal-controls">
+                            <div className="App-terminal-ctrl">
+                                <FontAwesomeIcon icon={faPlus}/>
+                            </div>
+                            <div className="App-terminal-ctrl">
+                                <FontAwesomeIcon icon={faStop}/>
+                            </div>
+                            <div className="App-terminal-ctrl">
+                                <FontAwesomeIcon icon={faTimes}/>
+                            </div>
+                            <div className="App-terminal-ctrl">
+                                <FontAwesomeIcon icon={faRedo}/>
+                            </div>
+                            <div className="App-terminal-ctrl">
+                                <FontAwesomeIcon icon={faDownload}/>
+                            </div>
                         </div>
-                    </div>
-                    <div className="App-menu-item">
-                        <u>S</u>ettings
-                        <div className="MenuDropDown">
-                            <div className="MenuDropDown-Item">Menu Item</div>
-                            <div className="MenuDropDown-Item">Menu Item</div>
-                            <div className="MenuDropDown-Item">Menu Item</div>
-                            <div className="MenuDropDown-Item">Menu Item</div>
+                        <div className="App-terminal-container">
+                            <div className="App-terminal-input">
+                                <div className="prompt">exabyte-io/demo $</div>
+                                <div className="Blinker">|</div>
+                            </div>
                         </div>
-                    </div>
-                    <div className="App-menu-item">
-                        <u>H</u>elp
-                        <div className="MenuDropDown">
-                            <div className="MenuDropDown-Item">Menu Item</div>
-                            <div className="MenuDropDown-Item">Menu Item</div>
-                            <div className="MenuDropDown-Item">Menu Item</div>
-                            <div className="MenuDropDown-Item">Menu Item</div>
+
+                        <div className="compute-usage">
+                            CPU Usage
                         </div>
                     </div>
                 </div>
-
-                <div className="App-spacer"></div>
-
-                <div className="App-editor-container">
-
-
-                    <div className="App-editor-code">
-
-                        <div className="container-title">
-                            <FontAwesomeIcon icon={faCode}/>&nbsp;&nbsp;&nbsp;Source Editor (benzene.xyz)
-
-                            {errorChecker}
-                        </div>
-
-
-                        <CodeMirror className="CodeMirror" value={this.state.code} onChange={this.updateCode}
-                                    options={options}/>
-                    </div>
-
-
-                    <div className="App-editor-view">
-
-                        <div className="container-title-2">
-                            <FontAwesomeIcon icon={faEye}/>&nbsp;&nbsp;&nbsp;Visual Editor
-                        </div>
-
-                        <ObjectViewer
-                            viewerRotate={this.state.viewerRotate}
-                            zoomIn={this.state.zoomIn}
-                            zoomOut={this.state.zoomOut}
-                            resetRotate={this.state.resetRotate}
-                            boundingBox={this.state.boundingBox}
-                            axes={this.state.axes}
-                            code={this.state.code}
-                            errors={this.state.errors}
-                        />
-
-                        <div className="compound-details">benzene.xyz</div>
-
-                    </div>
-
-                    <div className="viewer-controls">
-                        <div className="viewer-ctrl">
-                            <FontAwesomeIcon icon={faExpand}/>
-                        </div>
-
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-
-                        <div onClick={this.toggleAxesHandler} className="viewer-ctrl">
-                            {this.state.axes ? <FontAwesomeIcon icon={faAsterisk} className="ctrlActive"/> :
-                                <FontAwesomeIcon icon={faAsterisk}/>}
-                        </div>
-                        <div onClick={this.toggleBoundHandler} className="viewer-ctrl">
-                            {this.state.boundingBox ? <FontAwesomeIcon icon={faCube} className="ctrlActive"/> :
-                                <FontAwesomeIcon icon={faCube}/>}
-                        </div>
-                        <div onClick={this.resetRotateHandler} className="viewer-ctrl">
-                            <FontAwesomeIcon icon={faExpandArrowsAlt}/>
-                        </div>
-
-                        <div className="viewer-ctrl">
-                            <FontAwesomeIcon icon={faCamera}/>
-                        </div>
-
-                        <div onClick={this.rotateHandler} className="viewer-ctrl">
-                            {this.state.viewerRotate ? <FontAwesomeIcon icon={faPause} className="ctrlActive"/> :
-                                <FontAwesomeIcon icon={faPlay}/>}
-                        </div>
-                        <div onClick={this.zoomInHandler} className="viewer-ctrl">
-                            <FontAwesomeIcon icon={faSearchPlus}/>
-                        </div>
-                        <div onClick={this.zoomOutHandler} className="viewer-ctrl">
-                            <FontAwesomeIcon icon={faSearchMinus}/>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div className="App-terminal">
-                    <div className="App-terminal-controls">
-                        <div className="App-terminal-ctrl">
-                            <FontAwesomeIcon icon={faPlus}/>
-                        </div>
-                        <div className="App-terminal-ctrl">
-                            <FontAwesomeIcon icon={faStop}/>
-                        </div>
-                        <div className="App-terminal-ctrl">
-                            <FontAwesomeIcon icon={faTimes}/>
-                        </div>
-                        <div className="App-terminal-ctrl">
-                            <FontAwesomeIcon icon={faRedo}/>
-                        </div>
-                        <div className="App-terminal-ctrl">
-                            <FontAwesomeIcon icon={faDownload}/>
-                        </div>
-                    </div>
-                    <div className="App-terminal-container">
-                        <div className="App-terminal-input">
-                            <div className="prompt">exabyte-io/demo $</div>
-                            <div className="Blinker">|</div>
-                        </div>
-                    </div>
-
-                    <div className="compute-usage">
-                        CPU Usage
-                    </div>
-                </div>
-
             </div>
         );
     }
