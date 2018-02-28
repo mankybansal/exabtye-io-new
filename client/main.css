@@ -135,11 +135,12 @@ html, body {
 .SideBar-Item {
     width: 100%;
     box-sizing: border-box;
-    padding: 20px;
+    padding: 20px 50px 20px 50px;
     border-top: 1px solid #EEE;
     display: inline-block;
     font-family: Roboto-Light, sans-serif;
     color: #555;
+    text-align: left;
     transition: all ease .3s;
     cursor: pointer;
     animation-duration: .5s !important;
@@ -294,6 +295,11 @@ html, body {
 
 .MenuDropDown-Item:active {
     background: rgba(0, 0, 0, .1);
+}
+
+.MenuDropDown-Icons {
+    opacity: .5;
+    margin-left: 10px;
 }
 
 .App-menu-item:hover .MenuDropDown {
