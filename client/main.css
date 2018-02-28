@@ -468,6 +468,7 @@ html, body {
     float: left;
     color: white;
     font-size: 13px;
+    cursor: pointer;
 }
 
 .error {
@@ -626,5 +627,35 @@ html, body {
 
 .layout-toggle:hover {
     background: rgba(255, 255, 255, .1);
+}
+
+.projectBar {
+    width: 220px;
+    height: 100%;
+    float: left;
+    background: #FFF;
+    border-right: 5px solid #333;
+    box-sizing: border-box;
+    padding: 30px;
+    color: #333;
+    font-family: Roboto-Light, sans-serif;
+}
+
+.project-folder-icon {
+    float: left;
+}
+
+
+.project-folder {
+    font-size: 14px;
+    float: left;
+    margin-left: 10px;
+    margin-top: 2px;
+}
+
+.project-push {
+    margin-left: 20px;
+    font-size: 14px;
+    margin-top: 2px;
 }
 

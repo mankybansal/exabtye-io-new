@@ -3,7 +3,6 @@
 // TODO: show errors
 // TODO: add code split menu
 // TODO: fix terminal shadow and add terminal label
-// TODO: add project viewer
 // TODO: add welcome popup
 // TODO: add autosaved icon
 
@@ -34,6 +33,10 @@ import {
     faEye,
     faSync,
     faTimes,
+    faFolderOpen,
+    faFolder,
+    faSave,
+    faFile,
     faRedo,
     faPlus,
     faDownload
@@ -52,6 +55,7 @@ class App extends Component {
         this.state = {
             viewerRotate: true,
             resetRotate: false,
+            ProjectBar: false,
             zoomIn: false,
             zoomOut: false,
             boundingBox: true,
@@ -70,6 +74,7 @@ class App extends Component {
         this.toggleBoundHandler = this.toggleBoundHandler.bind(this);
         this.toggleAxesHandler = this.toggleAxesHandler.bind(this);
         this.toggleSyncHandler = this.toggleSyncHandler.bind(this);
+        this.toggleProjectBar = this.toggleProjectBar.bind(this);
 
         this.updateCode = this.updateCode.bind(this);
         this.toggleSideBar = this.toggleSideBar.bind(this);
@@ -128,6 +133,13 @@ class App extends Component {
     toggleSyncHandler() {
         this.setState({
             sync: !this.state.sync
+        });
+    }
+
+
+    toggleProjectBar() {
+        this.setState({
+            ProjectBar: !this.state.ProjectBar
         });
     }
 
@@ -248,7 +260,6 @@ class App extends Component {
                     </div>
                     : null}
 
-
                 <div
                     className={this.state.sideBar && this.state.sideBarInit ? "App-container App-container-push" : "App-container"}>
                     <div className="App-menu">
@@ -256,12 +267,31 @@ class App extends Component {
                     </div>
 
                     <div className="App-editor-container">
-
-
                         <div className="App-editor-code">
 
+                            {this.state.ProjectBar ?
+                                <div className="projectBar">
+                                    <b>My Project </b><br/><br/>
+
+                                    <FontAwesomeIcon className="project-folder-icon" icon={faFolderOpen}/> &nbsp;
+                                    <div className="project-folder"> Sample Project</div>
+                                    <br/><br/>
+                                    <FontAwesomeIcon className="project-folder-icon project-push"
+                                                     icon={faFile}/> &nbsp;
+                                    <div className="project-folder"> benzene.xyz</div>
+                                    <br/>
+                                    <FontAwesomeIcon className="project-folder-icon project-push"
+                                                     icon={faFile}/> &nbsp;
+                                    <div className="project-folder"> sample.xyz</div>
+                                    <br/>
+                                    <FontAwesomeIcon className="project-folder-icon project-push"
+                                                     icon={faFile}/> &nbsp;
+                                    <div className="project-folder"> test.xyz</div>
+                                </div>
+                            : null}
+
                             <div className="container-titlebar">
-                                <div className="fileDetailsButton">
+                                <div onClick={this.toggleProjectBar} className="fileDetailsButton">
                                     <FontAwesomeIcon icon={faChevronLeft}/>&nbsp;&nbsp; benzene.xyz
                                 </div>
 
@@ -269,11 +299,14 @@ class App extends Component {
                                     <FontAwesomeIcon icon={faCode}/>&nbsp;&nbsp;&nbsp;Source Editor
                                 </div>
 
-                                <div onClick={this.toggleSyncHandler }  className="container-titlebar-control">
-                                    {this.state.sync ? <FontAwesomeIcon icon={faSync} className="ctrlActive"/>:
+                                <div onClick={this.toggleSyncHandler} className="container-titlebar-control">
+                                    {this.state.sync ? <FontAwesomeIcon icon={faSync} className="ctrlActive"/> :
                                         <FontAwesomeIcon icon={faSync}/>}
                                 </div>
-
+                                <div onClick={this.toggleSyncHandler} className="container-titlebar-control">
+                                    {this.state.sync ? <FontAwesomeIcon icon={faSave} className="ctrlActive"/> :
+                                        <FontAwesomeIcon icon={faSave}/>}
+                                </div>
                                 {errorChecker}
                             </div>
 
