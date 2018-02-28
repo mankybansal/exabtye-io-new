@@ -425,22 +425,80 @@ html, body {
     background: blue;
 }
 
-.container-title, .container-title-2 {
+.container-titlebar, .container-titlebar-2 {
     width: 100%;
     text-align: center;
     box-sizing: border-box;
     font-family: Roboto-Light, sans-serif;
-    padding: 15px;
+    padding: 10px 50px 10px 50px;
     background: #333;
-    font-size: 14px;
     color: #EEE;
+    height: 50px;
     box-shadow: 0 0 30px rgba(0, 0, 0, .5);
 }
 
-.container-title-2 {
+.container-titlebar-2 {
     background: rgba(255, 255, 255, 0.05);
     color: #AAA;
 }
+
+.container-titlebar-control {
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+    box-sizing: border-box;
+    padding: 8px;
+    color: rgba(255,255,255,.4);
+    float: right;
+}
+
+
+.container-title {
+    padding: 8px;
+    font-size: 14px;
+    display: inline-block;
+}
+
+.fileDetailsButton {
+    height: 30px;
+    border-radius: 5px;
+    background: rgba(255,255,255, 0.1);
+    box-sizing: border-box;
+    padding: 7px 22px 8px 22px;
+    float: left;
+    color: white;
+    font-size: 13px;
+}
+
+.error {
+    display: inline-block;
+    font-size: 10px;
+    color: rgba(255, 255, 255, .7);
+    float: right;
+    height: 30px;
+    margin-right: 20px;
+    box-sizing: border-box;
+    padding: 12px 8px 8px 8px;
+}
+
+.errorIndicator, .errorIndicator-Green {
+    width: 8px;
+    border-radius: 50%;
+    height: 8px;
+    background: red;
+    opacity: .7;
+    float: left;
+}
+
+.errorIndicator-Green {
+    background: green;
+}
+
+.errorText {
+    margin-left: 5px;
+    float: left;
+}
+
 
 .compound-details {
     width: 100%;
@@ -570,30 +628,3 @@ html, body {
     background: rgba(255, 255, 255, .1);
 }
 
-.error {
-    position: fixed;
-    z-index: 99;
-    display: inline-block;
-    font-size: 10px;
-    color: rgba(255, 255, 255, .7);
-    margin-left: 50px;
-    margin-top: 5px;
-}
-
-.errorIndicator, .errorIndicator-Green {
-    width: 8px;
-    border-radius: 50%;
-    height: 8px;
-    background: red;
-    opacity: .7;
-    float: left;
-}
-
-.errorIndicator-Green {
-    background: green;
-}
-
-.errorText {
-    margin-left: 5px;
-    float: left;
-}

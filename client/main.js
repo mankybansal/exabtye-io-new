@@ -1,21 +1,11 @@
-// TODO: change editor benzene.xyz to a button which opens popup to change file editor
-// TODO: add file menu from structure
 // TODO: add "Create new" file in menu with popup
 // TODO: create menu for account
-// TODO: add button to toggle live update. If live update is off, then add refresh button (in viewer) cd
 // TODO: show errors
 // TODO: add code split menu
 // TODO: fix terminal shadow and add terminal label
 // TODO: add project viewer
 // TODO: add welcome popup
 // TODO: add autosaved icon
-
-
-
-
-
-
-
 
 import React, {Component} from 'react';
 import {Meteor} from 'meteor/meteor';
@@ -35,12 +25,14 @@ import {
     faPause,
     faCube,
     faAsterisk,
+    faChevronLeft,
     faPlay,
     faAngleDown,
     faBars,
     faStop,
     faCode,
     faEye,
+    faSync,
     faTimes,
     faRedo,
     faPlus,
@@ -67,7 +59,8 @@ class App extends Component {
             code: "\n// Exabtye.io Material Developer Sample\n// Type in your XYZ code here\n\n// If there are no errors, the viewer will show your molecule design\n\n// File Format:\n\n//    <number of atoms>\n//    comment line\n//    <element> <X> <Y> <Z>\n//    <element> <X> <Y> <Z>\n//    ...\n",
             errors: false,
             sideBar: false,
-            sideBarInit: false
+            sideBarInit: false,
+            sync: true
         };
 
         this.rotateHandler = this.rotateHandler.bind(this);
@@ -76,6 +69,7 @@ class App extends Component {
         this.zoomOutHandler = this.zoomOutHandler.bind(this);
         this.toggleBoundHandler = this.toggleBoundHandler.bind(this);
         this.toggleAxesHandler = this.toggleAxesHandler.bind(this);
+        this.toggleSyncHandler = this.toggleSyncHandler.bind(this);
 
         this.updateCode = this.updateCode.bind(this);
         this.toggleSideBar = this.toggleSideBar.bind(this);
@@ -128,6 +122,12 @@ class App extends Component {
         this.resetStates();
         this.setState({
             zoomOut: true
+        });
+    }
+
+    toggleSyncHandler() {
+        this.setState({
+            sync: !this.state.sync
         });
     }
 
@@ -246,7 +246,7 @@ class App extends Component {
                             onClick={this.toggleSideBar}
                         />
                     </div>
-                :null}
+                    : null}
 
 
                 <div
@@ -260,8 +260,19 @@ class App extends Component {
 
                         <div className="App-editor-code">
 
-                            <div className="container-title">
-                                <FontAwesomeIcon icon={faCode}/>&nbsp;&nbsp;&nbsp;Source Editor (benzene.xyz)
+                            <div className="container-titlebar">
+                                <div className="fileDetailsButton">
+                                    <FontAwesomeIcon icon={faChevronLeft}/>&nbsp;&nbsp; benzene.xyz
+                                </div>
+
+                                <div className="container-title">
+                                    <FontAwesomeIcon icon={faCode}/>&nbsp;&nbsp;&nbsp;Source Editor
+                                </div>
+
+                                <div onClick={this.toggleSyncHandler }  className="container-titlebar-control">
+                                    {this.state.sync ? <FontAwesomeIcon icon={faSync} className="ctrlActive"/>:
+                                        <FontAwesomeIcon icon={faSync}/>}
+                                </div>
 
                                 {errorChecker}
                             </div>
@@ -274,8 +285,10 @@ class App extends Component {
 
                         <div className="App-editor-view">
 
-                            <div className="container-title-2">
-                                <FontAwesomeIcon icon={faEye}/>&nbsp;&nbsp;&nbsp;Visual Editor
+                            <div className="container-titlebar-2">
+                                <div className="container-title">
+                                    <FontAwesomeIcon icon={faEye}/>&nbsp;&nbsp;&nbsp;Visual Editor
+                                </div>
                             </div>
 
                             <ObjectViewer
@@ -333,7 +346,8 @@ class App extends Component {
                     <Terminal/>
                 </div>
             </div>
-        );
+        )
+            ;
     }
 
     loadDesignerMenu() {
