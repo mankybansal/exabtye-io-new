@@ -1,3 +1,22 @@
+// TODO: change editor benzene.xyz to a button which opens popup to change file editor
+// TODO: add file menu from structure
+// TODO: add "Create new" file in menu with popup
+// TODO: create menu for account
+// TODO: add button to toggle live update. If live update is off, then add refresh button (in viewer) cd
+// TODO: show errors
+// TODO: add code split menu
+// TODO: fix terminal shadow and add terminal label
+// TODO: add project viewer
+// TODO: add welcome popup
+// TODO: add autosaved icon
+
+
+
+
+
+
+
+
 import React, {Component} from 'react';
 import {Meteor} from 'meteor/meteor';
 import {render} from 'react-dom';
@@ -175,43 +194,6 @@ class App extends Component {
             viewportMargin: Infinity
         };
 
-
-        let sideBar = null;
-
-
-        if (this.state.sideBarInit)
-            sideBar =
-                <div className={this.state.sideBar ? "SideBar-Container show" : null}>
-                    <div
-                        className={this.state.sideBar ? "SideBar animated slideInLeft" : "SideBar animated slideOutLeft"}>
-                        <div className={this.state.sideBar ? "SideBar-Item animated fadeInLeft" : "SideBar-Item"}>
-                            Sidebar Item
-                        </div>
-                        <div className={this.state.sideBar ? "SideBar-Item animated fadeInLeft" : "SideBar-Item"}>
-                            Sidebar Item
-                        </div>
-                        <div className={this.state.sideBar ? "SideBar-Item animated fadeInLeft" : "SideBar-Item"}>
-                            Sidebar Item
-                        </div>
-                        <div className={this.state.sideBar ? "SideBar-Item animated fadeInLeft" : "SideBar-Item"}>
-                            Sidebar Item
-                        </div>
-                        <div className={this.state.sideBar ? "SideBar-Item animated fadeInLeft" : "SideBar-Item"}>
-                            Sidebar Item
-                        </div>
-                        <div className={this.state.sideBar ? "SideBar-Item animated fadeInLeft" : "SideBar-Item"}>
-                            Sidebar Item
-                        </div>
-                        <div className={this.state.sideBar ? "SideBar-Item animated fadeInLeft" : "SideBar-Item"}>
-                            Sidebar Item
-                        </div>
-                    </div>
-
-                    <div
-                        className={this.state.sideBar ? "SideBar-Clickable animated fadeIn" : "SideBar-Clickable animated fadeOut"}
-                        onClick={this.toggleSideBar}/>
-                </div>;
-
         let errorChecker = null;
 
         if (this.state.errors) {
@@ -252,75 +234,25 @@ class App extends Component {
                     </div>
                 </div>
 
-                {sideBar}
+                {this.state.sideBarInit ?
+                    <div className={this.state.sideBar ? "SideBar-Container show" : null}>
+                        <div
+                            className={this.state.sideBar ? "SideBar animated slideInLeft" : "SideBar animated slideOutLeft"}>
+                            {this.loadSideBar()}
+                        </div>
+
+                        <div
+                            className={this.state.sideBar ? "SideBar-Clickable animated fadeIn" : "SideBar-Clickable animated fadeOut"}
+                            onClick={this.toggleSideBar}
+                        />
+                    </div>
+                :null}
 
 
                 <div
                     className={this.state.sideBar && this.state.sideBarInit ? "App-container App-container-push" : "App-container"}>
                     <div className="App-menu">
-                        <div className="App-menu-item">
-                            <u>F</u>ile
-                            <div className="MenuDropDown">
-                                <div className="MenuDropDown-Item">Menu Item</div>
-                                <div className="MenuDropDown-Item">Menu Item</div>
-                                <div className="MenuDropDown-Item">Menu Item</div>
-                                <div className="MenuDropDown-Item">Menu Item</div>
-                            </div>
-                        </div>
-                        <div className="App-menu-item">
-                            <u>E</u>dit
-                            <div className="MenuDropDown">
-                                <div className="MenuDropDown-Item">Menu Item</div>
-                                <div className="MenuDropDown-Item">Menu Item</div>
-                                <div className="MenuDropDown-Item">Menu Item</div>
-                                <div className="MenuDropDown-Item">Menu Item</div>
-                            </div>
-                        </div>
-                        <div className="App-menu-item">
-                            <u>V</u>iew
-                            <div className="MenuDropDown">
-                                <div className="MenuDropDown-Item">Menu Item</div>
-                                <div className="MenuDropDown-Item">Menu Item</div>
-                                <div className="MenuDropDown-Item">Menu Item</div>
-                                <div className="MenuDropDown-Item">Menu Item</div>
-                            </div>
-                        </div>
-                        <div className="App-menu-item">
-                            <u>I</u>nspect
-                            <div className="MenuDropDown">
-                                <div className="MenuDropDown-Item">Menu Item</div>
-                                <div className="MenuDropDown-Item">Menu Item</div>
-                                <div className="MenuDropDown-Item">Menu Item</div>
-                                <div className="MenuDropDown-Item">Menu Item</div>
-                            </div>
-                        </div>
-                        <div className="App-menu-item">
-                            Si<u>m</u>ulations
-                            <div className="MenuDropDown">
-                                <div className="MenuDropDown-Item">Menu Item</div>
-                                <div className="MenuDropDown-Item">Menu Item</div>
-                                <div className="MenuDropDown-Item">Menu Item</div>
-                                <div className="MenuDropDown-Item">Menu Item</div>
-                            </div>
-                        </div>
-                        <div className="App-menu-item">
-                            <u>S</u>ettings
-                            <div className="MenuDropDown">
-                                <div className="MenuDropDown-Item">Menu Item</div>
-                                <div className="MenuDropDown-Item">Menu Item</div>
-                                <div className="MenuDropDown-Item">Menu Item</div>
-                                <div className="MenuDropDown-Item">Menu Item</div>
-                            </div>
-                        </div>
-                        <div className="App-menu-item">
-                            <u>H</u>elp
-                            <div className="MenuDropDown">
-                                <div className="MenuDropDown-Item">Menu Item</div>
-                                <div className="MenuDropDown-Item">Menu Item</div>
-                                <div className="MenuDropDown-Item">Menu Item</div>
-                                <div className="MenuDropDown-Item">Menu Item</div>
-                            </div>
-                        </div>
+                        {this.loadDesignerMenu()}
                     </div>
 
                     <div className="App-editor-container">
@@ -366,15 +298,7 @@ class App extends Component {
                                 <FontAwesomeIcon icon={faExpand}/>
                             </div>
 
-                            <br/>
-                            <br/>
-                            <br/>
-                            <br/>
-                            <br/>
-                            <br/>
-                            <br/>
-                            <br/>
-                            <br/>
+                            <div className="viewer-control-spacer"/>
 
                             <div onClick={this.toggleAxesHandler} className="viewer-ctrl">
                                 {this.state.axes ? <FontAwesomeIcon icon={faAsterisk} className="ctrlActive"/> :
@@ -406,38 +330,37 @@ class App extends Component {
 
                     </div>
 
-                    <div className="App-terminal">
-                        <div className="App-terminal-controls">
-                            <div className="App-terminal-ctrl">
-                                <FontAwesomeIcon icon={faPlus}/>
-                            </div>
-                            <div className="App-terminal-ctrl">
-                                <FontAwesomeIcon icon={faStop}/>
-                            </div>
-                            <div className="App-terminal-ctrl">
-                                <FontAwesomeIcon icon={faTimes}/>
-                            </div>
-                            <div className="App-terminal-ctrl">
-                                <FontAwesomeIcon icon={faRedo}/>
-                            </div>
-                            <div className="App-terminal-ctrl">
-                                <FontAwesomeIcon icon={faDownload}/>
-                            </div>
-                        </div>
-                        <div className="App-terminal-container">
-                            <div className="App-terminal-input">
-                                <div className="prompt">exabyte-io/demo $</div>
-                                <div className="Blinker">|</div>
-                            </div>
-                        </div>
-
-                        <div className="compute-usage">
-                            CPU Usage
-                        </div>
-                    </div>
+                    <Terminal/>
                 </div>
             </div>
         );
+    }
+
+    loadDesignerMenu() {
+        return Object.entries(designerMenu).map(([key, value], i) => {
+            return (
+                <div key={key} className="App-menu-item">
+                    {value.name}
+                    <div className="MenuDropDown">{
+                        Object.entries(value.dropDowns).map(([dropDownKey, dropDownValue], j) => {
+                            return (
+                                <div key={dropDownKey} className="MenuDropDown-Item">{dropDownValue.name}</div>
+                            )
+                        })
+                    }</div>
+                </div>
+            )
+        });
+    }
+
+    loadSideBar() {
+        return Object.entries(sideBarItems).map(([key, value], i) => {
+            return (
+                <div key={key} className={this.state.sideBar ? "SideBar-Item animated fadeInLeft" : "SideBar-Item"}>
+                    {value.name}
+                </div>
+            )
+        });
     }
 }
 
@@ -671,6 +594,159 @@ class ObjectViewer extends Component {
             <div className="renderer" ref={(mount) => {
                 this.mount = mount
             }}/>
+        )
+    }
+}
+
+const sideBarItems = [
+    {
+        id: 1,
+        name: 'Home'
+    }, {
+        id: 2,
+        name: 'Dashboard'
+    }, {
+        id: 2,
+        name: 'Projects'
+    }, {
+        id: 2,
+        name: 'My Account'
+    }, {
+        id: 2,
+        name: 'Support'
+    }, {
+        id: 2,
+        name: 'Documentation'
+    }
+];
+
+const designerMenu = [
+    {
+        id: 1,
+        name: "File",
+        dropDowns: [{
+            name: "New File"
+        }, {
+            name: "Import File"
+        }, {
+            name: "Open Project"
+        }, {
+            name: "Save Project"
+        }, {
+            name: "Preferences"
+        }]
+    }, {
+        id: 2,
+        name: "Edit",
+        dropDowns: [{
+            name: "Menu Item"
+        }, {
+            name: "Menu Item"
+        }, {
+            name: "Menu Item"
+        }, {
+            name: "Menu Item"
+        }]
+    }, {
+        id: 3,
+        name: "View",
+        dropDowns: [{
+            name: "Menu Item"
+        }, {
+            name: "Menu Item"
+        }, {
+            name: "Menu Item"
+        }, {
+            name: "Menu Item"
+        }]
+    }, {
+        id: 4,
+        name: "Inspect",
+        dropDowns: [{
+            name: "Menu Item"
+        }, {
+            name: "Menu Item"
+        }, {
+            name: "Menu Item"
+        }, {
+            name: "Menu Item"
+        }]
+    }, {
+        id: 5,
+        name: "Simulations",
+        dropDowns: [{
+            name: "Menu Item"
+        }, {
+            name: "Menu Item"
+        }, {
+            name: "Menu Item"
+        }, {
+            name: "Menu Item"
+        }]
+    }, {
+        id: 6,
+        name: "Settings",
+        dropDowns: [{
+            name: "Menu Item"
+        }, {
+            name: "Menu Item"
+        }, {
+            name: "Menu Item"
+        }, {
+            name: "Menu Item"
+        }]
+    }, {
+        id: 7,
+        name: "Help",
+        dropDowns: [{
+            name: "Menu Item"
+        }, {
+            name: "Menu Item"
+        }, {
+            name: "Menu Item"
+        }, {
+            name: "Menu Item"
+        }]
+    }
+];
+
+class Terminal extends Component {
+
+    constructor(props) {
+        super(props)
+    }
+
+    render() {
+        return (
+            <div className="App-terminal">
+                <div className="App-terminal-controls">
+                    <div className="App-terminal-ctrl">
+                        <FontAwesomeIcon icon={faPlus}/>
+                    </div>
+                    <div className="App-terminal-ctrl">
+                        <FontAwesomeIcon icon={faStop}/>
+                    </div>
+                    <div className="App-terminal-ctrl">
+                        <FontAwesomeIcon icon={faTimes}/>
+                    </div>
+                    <div className="App-terminal-ctrl">
+                        <FontAwesomeIcon icon={faRedo}/>
+                    </div>
+                    <div className="App-terminal-ctrl">
+                        <FontAwesomeIcon icon={faDownload}/>
+                    </div>
+                </div>
+                <div className="App-terminal-container">
+                    <div className="App-terminal-input">
+                        <div className="prompt">exabyte-io/demo $</div>
+                        <div className="Blinker">|</div>
+                    </div>
+                </div>
+
+                <div className="compute-usage">
+                    CPU Usage
+                </div>
+            </div>
         )
     }
 }
