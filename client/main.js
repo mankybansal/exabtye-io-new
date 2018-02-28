@@ -4,7 +4,6 @@
 // TODO: add code split menu
 // TODO: fix terminal shadow and add terminal label
 // TODO: add welcome popup
-// TODO: add autosaved icon
 
 import React, {Component} from 'react';
 import {Meteor} from 'meteor/meteor';
@@ -18,7 +17,7 @@ import {
     faExpandArrowsAlt, faPause, faCube,
     faAsterisk, faChevronLeft, faPlay, faAngleDown, faBars, faStop,
     faCode, faEye, faSync, faTimes, faFolderOpen,
-    faFolder, faLifeRing, faTachometerAlt, faUser,
+    faLifeRing, faTachometerAlt, faUser,
     faHome, faBook, faUndo, faRedo, faCut,
     faCopy, faPaste, faTrash,
     faSave, faCog, faUpload, faFile, faPlus, faDownload
