@@ -278,7 +278,7 @@ class App extends Component {
                                     <br/><br/>
                                     <FontAwesomeIcon className="project-folder-icon project-push"
                                                      icon={faFile}/> &nbsp;
-                                    <div className="project-folder"> benzene.xyz</div>
+                                    <div className="project-folder"> <b>benzene.xyz</b></div>
                                     <br/>
                                     <FontAwesomeIcon className="project-folder-icon project-push"
                                                      icon={faFile}/> &nbsp;
