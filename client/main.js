@@ -10,25 +10,178 @@ import {Meteor} from 'meteor/meteor';
 import {render} from 'react-dom';
 
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
-import CodeMirror from 'react-codemirror'
-
 import {
     faCamera, faSearchPlus, faColumns, faSearchMinus, faExpand,
     faExpandArrowsAlt, faPause, faCube,
-    faAsterisk, faChevronLeft, faPlay, faAngleDown, faBars, faStop,
-    faCode, faEye, faSync, faTimes, faFolderOpen,
+    faAsterisk, faChevronLeft, faPlay, faAngleDown, faBars,
+    faCode, faEye, faSync, faFolderOpen,
     faLifeRing, faTachometerAlt, faUser,
     faHome, faBook, faUndo, faRedo, faCut,
     faCopy, faPaste, faTrash,
-    faSave, faCog, faUpload, faFile, faPlus, faDownload
+    faSave, faCog, faUpload, faFile
 } from '@fortawesome/fontawesome-free-solid'
 
+import CodeMirror from 'react-codemirror'
 import '../node_modules/codemirror/lib/codemirror.css'
 import '../node_modules/codemirror/theme/base16-dark.css'
 import '../node_modules/codemirror/addon/selection/active-line'
 import './styles.css'
 
-import ObjectViewer from './Components/ObjectViewer'
+import ObjectViewer from './Components/ObjectViewer';
+import Terminal from './Components/Terminal';
+
+const sideBarItems = [
+    {
+        id: 1,
+        name: 'Home',
+        icon: faHome
+    }, {
+        id: 2,
+        name: 'Dashboard',
+        icon: faTachometerAlt
+    }, {
+        id: 2,
+        name: 'Projects',
+        icon: faFile
+    }, {
+        id: 2,
+        name: 'My Account',
+        icon: faUser
+    }, {
+        id: 2,
+        name: 'Support',
+        icon: faLifeRing
+    }, {
+        id: 2,
+        name: 'Documentation',
+        icon: faBook
+    }
+];
+
+const designerMenu = [
+    {
+        id: 1,
+        name: "File",
+        dropDowns: [{
+            name: "New File",
+            icon: faFile
+        }, {
+            name: "Import File",
+            icon: faUpload
+        }, {
+            name: "Open Project",
+            icon: faFolderOpen
+        }, {
+            name: "Save Project",
+            icon: faSave
+        }, {
+            name: "Preferences",
+            icon: faCog
+        }]
+    }, {
+        id: 2,
+        name: "Edit",
+        dropDowns: [{
+            name: "Undo   (⌘Z)",
+            icon: faUndo
+        },{
+            name: "Redo   (⌘⇧Z)",
+            icon: faRedo
+        },{
+            name: "Cut    (⌘X)",
+            icon: faCut
+        }, {
+            name: "Copy   (⌘C)",
+            icon: faCopy
+        }, {
+            name: "Paste  (⌘V)",
+            icon: faPaste
+        }, {
+            name: "Delete",
+            icon: faTrash
+        }]
+    }, {
+        id: 3,
+        name: "View",
+        dropDowns: [{
+            name: "Menu Item",
+            icon: false
+        }, {
+            name: "Menu Item",
+            icon: false
+        }, {
+            name: "Menu Item",
+            icon: false
+        }, {
+            name: "Menu Item",
+            icon: false
+        }]
+    }, {
+        id: 4,
+        name: "Inspect",
+        dropDowns: [{
+            name: "Menu Item",
+            icon: false
+        }, {
+            name: "Menu Item",
+            icon: false
+        }, {
+            name: "Menu Item",
+            icon: false
+        }, {
+            name: "Menu Item",
+            icon: false
+        }]
+    }, {
+        id: 5,
+        name: "Simulations",
+        dropDowns: [{
+            name: "Menu Item",
+            icon: false
+        }, {
+            name: "Menu Item",
+            icon: false
+        }, {
+            name: "Menu Item",
+            icon: false
+        }, {
+            name: "Menu Item",
+            icon: false
+        }]
+    }, {
+        id: 6,
+        name: "Settings",
+        dropDowns: [{
+            name: "Menu Item",
+            icon: false
+        }, {
+            name: "Menu Item",
+            icon: false
+        }, {
+            name: "Menu Item",
+            icon: false
+        }, {
+            name: "Menu Item",
+            icon: false
+        }]
+    }, {
+        id: 7,
+        name: "Help",
+        dropDowns: [{
+            name: "Menu Item",
+            icon: false
+        }, {
+            name: "Menu Item",
+            icon: false
+        }, {
+            name: "Menu Item",
+            icon: false
+        }, {
+            name: "Menu Item",
+            icon: false
+        }]
+    }
+];
 
 class App extends Component {
 
@@ -399,200 +552,6 @@ class App extends Component {
         });
     }
 }
-
-class Terminal extends Component {
-
-    constructor(props) {
-        super(props)
-    }
-
-    render() {
-        return (
-            <div className="App-terminal">
-                <div className="App-terminal-controls">
-                    <div className="App-terminal-ctrl">
-                        <FontAwesomeIcon icon={faPlus}/>
-                    </div>
-                    <div className="App-terminal-ctrl">
-                        <FontAwesomeIcon icon={faStop}/>
-                    </div>
-                    <div className="App-terminal-ctrl">
-                        <FontAwesomeIcon icon={faTimes}/>
-                    </div>
-                    <div className="App-terminal-ctrl">
-                        <FontAwesomeIcon icon={faRedo}/>
-                    </div>
-                    <div className="App-terminal-ctrl">
-                        <FontAwesomeIcon icon={faDownload}/>
-                    </div>
-                </div>
-                <div className="App-terminal-container">
-                    <div className="App-terminal-input">
-                        <div className="prompt">exabyte-io/demo $</div>
-                        <div className="Blinker">|</div>
-                    </div>
-                </div>
-
-                <div className="compute-usage">
-                    CPU Usage
-                </div>
-            </div>
-        )
-    }
-}
-
-const sideBarItems = [
-    {
-        id: 1,
-        name: 'Home',
-        icon: faHome
-    }, {
-        id: 2,
-        name: 'Dashboard',
-        icon: faTachometerAlt
-    }, {
-        id: 2,
-        name: 'Projects',
-        icon: faFile
-    }, {
-        id: 2,
-        name: 'My Account',
-        icon: faUser
-    }, {
-        id: 2,
-        name: 'Support',
-        icon: faLifeRing
-    }, {
-        id: 2,
-        name: 'Documentation',
-        icon: faBook
-    }
-];
-
-const designerMenu = [
-    {
-        id: 1,
-        name: "File",
-        dropDowns: [{
-            name: "New File",
-            icon: faFile
-        }, {
-            name: "Import File",
-            icon: faUpload
-        }, {
-            name: "Open Project",
-            icon: faFolderOpen
-        }, {
-            name: "Save Project",
-            icon: faSave
-        }, {
-            name: "Preferences",
-            icon: faCog
-        }]
-    }, {
-        id: 2,
-        name: "Edit",
-        dropDowns: [{
-            name: "Undo   (⌘Z)",
-            icon: faUndo
-        },{
-            name: "Redo   (⌘⇧Z)",
-            icon: faRedo
-        },{
-            name: "Cut    (⌘X)",
-            icon: faCut
-        }, {
-            name: "Copy   (⌘C)",
-            icon: faCopy
-        }, {
-            name: "Paste  (⌘V)",
-            icon: faPaste
-        }, {
-            name: "Delete",
-            icon: faTrash
-        }]
-    }, {
-        id: 3,
-        name: "View",
-        dropDowns: [{
-            name: "Menu Item",
-            icon: false
-        }, {
-            name: "Menu Item",
-            icon: false
-        }, {
-            name: "Menu Item",
-            icon: false
-        }, {
-            name: "Menu Item",
-            icon: false
-        }]
-    }, {
-        id: 4,
-        name: "Inspect",
-        dropDowns: [{
-            name: "Menu Item",
-            icon: false
-        }, {
-            name: "Menu Item",
-            icon: false
-        }, {
-            name: "Menu Item",
-            icon: false
-        }, {
-            name: "Menu Item",
-            icon: false
-        }]
-    }, {
-        id: 5,
-        name: "Simulations",
-        dropDowns: [{
-            name: "Menu Item",
-            icon: false
-        }, {
-            name: "Menu Item",
-            icon: false
-        }, {
-            name: "Menu Item",
-            icon: false
-        }, {
-            name: "Menu Item",
-            icon: false
-        }]
-    }, {
-        id: 6,
-        name: "Settings",
-        dropDowns: [{
-            name: "Menu Item",
-            icon: false
-        }, {
-            name: "Menu Item",
-            icon: false
-        }, {
-            name: "Menu Item",
-            icon: false
-        }, {
-            name: "Menu Item",
-            icon: false
-        }]
-    }, {
-        id: 7,
-        name: "Help",
-        dropDowns: [{
-            name: "Menu Item",
-            icon: false
-        }, {
-            name: "Menu Item",
-            icon: false
-        }, {
-            name: "Menu Item",
-            icon: false
-        }, {
-            name: "Menu Item",
-            icon: false
-        }]
-    }
-];
 
 Meteor.startup(() => {
     render(<App/>, document.getElementById('root'));
