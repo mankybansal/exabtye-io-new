@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import * as THREE from 'three';
 import OrbitControls from 'three-orbitcontrols';
 
@@ -47,6 +47,12 @@ class ObjectViewer extends Component {
         group.name = "parentGroup";
 
         scene.add(group);
+
+
+        const light = new THREE.PointLight(0xFFFFFF, 1, 100);
+        light.position.set(10, 10, 10);
+        scene.add(light);
+
 
         camera.position.z = 8;
 
@@ -102,7 +108,7 @@ class ObjectViewer extends Component {
             }
 
             geometry = new THREE.SphereBufferGeometry(defgeometry, 50, 50);
-            material = new THREE.MeshBasicMaterial({color: defcolor});
+            material = new THREE.MeshLambertMaterial({color: defcolor});
             cubes[i] = new THREE.Mesh(geometry, material);
             cubes[i].position.set(this.viewerFile.atoms[i].x, this.viewerFile.atoms[i].y, this.viewerFile.atoms[i].z);
             group.add(cubes[i]);

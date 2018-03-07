@@ -514,8 +514,7 @@ class App extends Component {
                     <Terminal/>
                 </div>
             </div>
-        )
-            ;
+        );
     }
 
     loadDesignerMenu() {
